@@ -490,3 +490,32 @@ func Test_SpaceAfterOpeningBrackets__haveMultilinedSpaceAfterBrackets_spaceAndNe
 	testutils.Cleanup()
 
 }
+
+func Test_Numbering_HaveNumberingAtBeginOfLine_RemoveNumbering(t *testing.T) {
+	tests := testutils.ConversionTests{
+		{
+			In: `1. Testing
+sdfsd sd 123. sdfrt
+
+1230. asdf
+123 test`,
+			Want: `Testing
+sdfsd sd 123. sdfrt
+
+asdf
+123 test`,
+		},
+	}
+
+	for _, test := range tests {
+		got := Numbering(test.In)
+		if !reflect.DeepEqual(test.Want, got) {
+			_, file, line, _ := runtime.Caller(0)
+			fmt.Printf("%s:%d:\n\ncall SpaceBeforeClosingBrackets(%#v)\n\texp: %#v\n\n\tgot: %#v\n\n",
+				filepath.Base(file), line, test.In, test.Want, got)
+			t.FailNow()
+		}
+	}
+	testutils.Cleanup()
+
+}

@@ -35,7 +35,15 @@ func Duplicates(strings []string) []string {
 	return result
 }
 
-// TrailingSpaces removes trailing white spaces from string s
+// Numbering removes leading enumerations at the begin of a line from string
+// s. Example: 3. Heading --> Heading
+func Numbering(s string) string {
+	digitsAndDotAtStartOfLine := `(?m)^[ \t\r\f]*\d+\.[ \t\r\f]*`
+	return RegExp(s, digitsAndDotAtStartOfLine)
+}
+
+// TrailingSpaces removes trailing non-line breaking white spaces from
+// string s
 func TrailingSpaces(s string) string {
 	// convert unicode char \u00A0 = &nbsp = 'non-breaking space' to space
 	//s = strings.Replace(s, " \n", "\n", -1)
@@ -46,7 +54,8 @@ func TrailingSpaces(s string) string {
 	return s
 }
 
-// TrailingSpaces removes trailing white spaces from string s
+// LeadingSpaces removes leading non-line breaking white spaces from string
+// s
 func LeadingSpaces(s string) string {
 	regSpace := regexp.MustCompile(`^[ \t\r\f]+`)
 	s = regSpace.ReplaceAllString(s, "")
