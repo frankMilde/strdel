@@ -158,6 +158,24 @@ func Test_EmptyLines_haveEmptyMultiLine_RemoveEmptyLines(t *testing.T) {
 			Want: `\emph{
 			}`,
 		},
+		{
+			In: `qwewesfdj
+
+			sadfsd
+		
+			sdf
+			sdf
+
+
+			sdf
+			}`,
+			Want: `qwewesfdj
+			sadfsd
+			sdf
+			sdf
+			sdf
+			}`,
+		},
 	}
 
 	for _, test := range tests {
